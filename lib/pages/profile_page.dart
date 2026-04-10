@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ppmtask/models/profile.dart';
 import 'package:ppmtask/services/dummy_service.dart';
 import 'package:ppmtask/widgets/profile_info.dart';
-import 'package:ppmtask/pages/constants_page.dart';
-import 'package:ppmtask/pages/methods_page.dart';
-import 'package:ppmtask/pages/classes_page.dart';
+import 'package:ppmtask/utils/constants.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -21,20 +19,7 @@ class ProfilePage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 48,
-                backgroundImage: p.avatarUrl.isNotEmpty
-                    ? (p.avatarUrl.startsWith('http')
-                          ? NetworkImage(p.avatarUrl) as ImageProvider
-                          : AssetImage(p.avatarUrl) as ImageProvider)
-                    : null,
-                child: p.avatarUrl.isEmpty
-                    ? Text(
-                        p.name.isNotEmpty ? p.name[0] : '?',
-                        style: const TextStyle(fontSize: 36),
-                      )
-                    : null,
-              ),
+              avatarCircle(url: p.avatarUrl, name: p.name, radius: 48),
               const SizedBox(height: 12),
               Text(p.name, style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 6),
@@ -84,33 +69,6 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const ConstantsPage()));
-                },
-                child: const Text('Constants'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const MethodsPage()));
-                },
-                child: const Text('Methods'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const ClassesPage()));
-                },
-                child: const Text('Classes'),
-              ),
-            ],
           ),
         ],
       ),
